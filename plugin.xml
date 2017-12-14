@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-LogUtil" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>LogUtil</name>
+	<js-module name="LogUtil" src="www/LogUtil.js">
+		<clobbers target="cordova.plugins.LogUtil" />
+	</js-module>
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="LogUtil">
+				<param name="android-package" value="com.rohon.log.LogUtil" />
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml"></config-file>
+		<source-file src="src/android/LogUtil.java" target-dir="src/com/rohon/log/LogUtil.java" />
+		<source-file src="src/android/LogInfo.java" target-dir="src/com/rohon/log/LogInfo.java" />
+		<source-file src="src/android/LogQueue.java" target-dir="src/com/rohon/log/LogQueue.java" />
+		<source-file src="src/android/LogWriter.java" target-dir="src/com/rohon/log/LogWriter.java" />
+		<source-file src="src/android/Log.java" target-dir="src/com/rohon/log/Log.java" />
+	</platform>
+</plugin>
