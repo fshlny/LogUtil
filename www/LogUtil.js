@@ -20,6 +20,6 @@ exports.error = function(tag,info,success,error){
 	exec(success,error,"LogUtil","error",[tag,info]);
 };
 
-exports.quit = function(quit,success,error){
-	exec(success,error,"LogUtil","quit",[quit]);
+exports.quit = function(success,error){
+	exec(success,error,"LogUtil","quit");
 };

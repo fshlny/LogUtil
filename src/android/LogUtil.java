@@ -40,8 +40,7 @@ public class LogUtil extends CordovaPlugin {
             error(tag,info);
             return true;
         }else if(action.equals("quit")){
-            boolean quit = args.getBoolean(0);
-            quit(quit); 
+            quit(); 
             return true;
         }
         return false;
@@ -71,7 +70,7 @@ public class LogUtil extends CordovaPlugin {
     private void error(String tag,String info){
         Log.error(tag,info);
     }
-    private void quit(boolean quit){
-        Log.quit(quit);
+    private void quit(){
+        Log.quit();
     }
 }

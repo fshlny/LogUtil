@@ -10,7 +10,6 @@ public class LogQueue implements Runnable{
     private String TAG = LogQueue.class.getSimpleName();
     private LinkedBlockingQueue<LogInfo> logQueue;
     private Thread thread;
-    private volatile boolean quit = false;
     private LogWriter writer;
     public LogQueue(String dir,String fileName){
         logQueue = new LinkedBlockingQueue<LogInfo>();
@@ -35,19 +34,33 @@ public class LogQueue implements Runnable{
 
     private void takeLogInfo(){
         for(;;){
-            if(quit){//暂时直接退出
-                break;
-            }
             try {
                 LogInfo log = logQueue.take();//如果没有日志内容，线程会进入等待状态
                 writer.writeLog(log);
             } catch (InterruptedException e) {
-                Log.d(TAG,"logQueue take logInfo error,Thread interrupted,"+e.getMessage());
+                flush();
+                Log.d(TAG,"quit Log queue");
+                break;
             }
         }
     }
 
-    public void quit(boolean quit){
-        this.quit = quit;
+    /**
+    * 当线程中断时调用，如果队列中还有日志时，就清空队列
+    */
+    private void flush(){
+        if(logQueue.isEmpty()) return;
+        Iterator<LogInfo> iterator = logQueue.iterator();
+        while(iterator.hasNext()){
+            LogInfo info = iterator.next();
+            writer.writeLog(info);
+        }
+    }
+
+    /**
+    * 通过中断来退出循环
+    */
+    public void quit(){
+       this.thread.interrupt();
     }
 }

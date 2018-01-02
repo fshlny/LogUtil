@@ -65,7 +65,7 @@ public class Log {
     /**
     * 退出
     */
-    public static void quit(boolean quit){
-        queue.quit(quit);
+    public static void quit(){
+        queue.quit();
     }
 }
